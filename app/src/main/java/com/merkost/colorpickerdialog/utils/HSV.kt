@@ -18,9 +18,9 @@ data class HSV(val hue: Float, val saturation: Float, val value: Float) {
         }
 
         return Color(
-            red = (r + m),
-            green = (g + m),
-            blue = (b + m)
+            red = (r + m).coerceIn(0f, 1f),
+            green = (g + m).coerceIn(0f, 1f),
+            blue = (b + m).coerceIn(0f, 1f)
         )
     }
 }

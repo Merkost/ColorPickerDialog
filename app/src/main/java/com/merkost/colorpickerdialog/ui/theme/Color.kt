@@ -24,13 +24,22 @@ fun Color.toHex(): String {
     ).uppercase(Locale.ROOT)
 }
 
-fun Color.byFormat(format: ColorFormat) =when (format) {
-    ColorFormat.RGBA -> "RGBA(${(this.red * 255).toInt()}, ${(this.green * 255).toInt()}, ${(this.blue * 255).toInt()}, ${"%.2f".format(this.alpha)})"
+fun Color.byFormat(format: ColorFormat) = when (format) {
+    ColorFormat.RGBA -> "RGBA(${(this.red * 255).toInt()}, ${(this.green * 255).toInt()}, ${(this.blue * 255).toInt()}, ${
+        "%.2f".format(
+            this.alpha
+        )
+    })"
+
     ColorFormat.HEX -> "#${this.toHex()}"
     ColorFormat.HSLA -> {
         val hsl = FloatArray(3)
         ColorUtils.colorToHSL(this.toArgb(), hsl)
-        "HSLA(${hsl[0].toInt()}, ${"%.2f".format(hsl[1] * 100)}%, ${"%.2f".format(hsl[2] * 100)}%, ${"%.2f".format(this.alpha)})"
+        "HSLA(${hsl[0].toInt()}, ${"%.2f".format(hsl[1] * 100)}%, ${"%.2f".format(hsl[2] * 100)}%, ${
+            "%.2f".format(
+                this.alpha
+            )
+        })"
     }
 }
 
@@ -55,7 +64,8 @@ fun Color.toHsl(): Triple<Float, Float, Float> {
     return Triple(hueDegrees, saturation, lightness)
 }
 
-fun Color.getHue(): Float {
-    val (hue, _, _) = this.toHsl()
-    return hue
-}
+val Color.hue: Float
+    get() {
+        val (hue, _, _) = this.toHsl()
+        return hue
+    }
